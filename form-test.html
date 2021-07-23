@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<head>
+  <link rel="stylesheet" href="./dist/themes/base.css" />
+  <script type="module" src="./dist/shoelace.js"></script>
+  <style>
+    :root {
+      --sl-input-border-color-hover: var(--sl-color-gray-300);
+      --sl-input-border-color-focus: var(--sl-color-gray-300);
+      --sl-input-color-hover: var(--sl-input-color);
+    }
+
+    body {
+      font-family: var(--sl-font-sans);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #dadada;
+      align-items: center;
+    }
+
+    p.box {
+      max-width: 300px;
+      background: #fff;
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow: var(--sl-shadow-medium);
+    }
+
+    .center {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .date-arrow {
+      position: absolute;
+      z-index: 1;
+      color: var(--sl-color-primary-500);
+      font-size: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 55%;
+    }
+
+    sl-input.start::part(base) sl-input.end::part(base) {
+      width: 130px;
+    }
+
+    sl-input.start::part(base) {
+      border-right: none;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    sl-input.end::part(base) {
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
+    }
+
+    sl-input.end::part(input) {
+      text-align: right;
+    }
+
+    sl-date-picker::part(trigger-button) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="center">
+    <form id="form-1" method="POST">
+      <sl-input id="form-input-1" name="form-input-1" label="Surname" size="medium" value="default value" required>
+      </sl-input>
+      <sl-button class="danger" type="submit">Submit</sl-button>
+      <sl-button class="info" type="reset">Reset</sl-button>
+      <sl-button class="info" type="button">Change Language</sl-button>
+    </form>
+  </div>
+  <!-- <div class="center">
+    <sl-form .model=${model}>
+    <sl-form>
+      <sl-input name='firstName' type="text" label="Name"></sl-input>
+    </sl-form>
+  </div> -->
+  <script>
+    const model = {
+      firstName: 'Pippo',
+      lastName: 'Bloggs'
+    };
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('form-1');
+
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+
+        const formdata = new FormData(event.target);
+        const data = Object.fromEntries(formdata.entries());
+
+        console.log(data);
+        console.log(formdata.get('form-input-1'));
+      });
+    });
+  </script>
+</body>
